@@ -15,8 +15,8 @@ public with sharing class TaskTriggerHandler implements ITrigger {
     public void bulkBefore() {
 
         whatTask = new Map<Id, Task>([select typeof What 
-                    when Account then Id, Name, Last_Activity_Date__c
-                    when Opportunity then Id, Account.Last_Activity_Date__c
+                    when Account then Id, Name, Last_Activity_Date__c, ParentId
+                    when Opportunity then Id, Account.Last_Activity_Date__c, Account.ParentId
                 END
             from Task where Id in :Trigger.new]);
     }
@@ -43,13 +43,15 @@ public with sharing class TaskTriggerHandler implements ITrigger {
                 account = opportunity.Account;
             }
 
-            if(account.Last_Activity_Date__c != null && account.Last_Activity_Date__c < newTask.ActivityDate) {
-                account.Last_Activity_Date__c = newTask.ActivityDate;
-            } else {
-                account.Last_Activity_Date__c = newTask.ActivityDate;
-            }
+            if(account.Parent != null) {
+                if(account.Last_Activity_Date__c != null && account.Last_Activity_Date__c < newTask.ActivityDate) {
+                    account.Last_Activity_Date__c = newTask.ActivityDate;
+                } else {
+                    account.Last_Activity_Date__c = newTask.ActivityDate;
+                }
 
-            accounts.add(account);
+                accounts.add(account);
+            }
         }
     }
 
