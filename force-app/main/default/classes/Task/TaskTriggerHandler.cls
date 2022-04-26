@@ -43,7 +43,7 @@ public with sharing class TaskTriggerHandler implements ITrigger {
                 account = opportunity.Account;
             }
 
-            if(account.Parent != null) {
+            if(account.ParentId != null) {
                 if(account.Last_Activity_Date__c != null && account.Last_Activity_Date__c < newTask.ActivityDate) {
                     account.Last_Activity_Date__c = newTask.ActivityDate;
                 } else {
