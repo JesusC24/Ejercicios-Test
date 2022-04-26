@@ -10,7 +10,7 @@ public with sharing class TestTaskIntegration {
 
         Test.stopTest();
 
-        Account account = [select Last_Activity_Date__c from Account where Name = 'Test' limit 1];
+        Account account = [select Last_Activity_Date__c from Account where Name = 'Test padre' limit 1];
         System.assertEquals(Date.today().addDays(20), account.Last_Activity_Date__c, 'La fecha se ha cambiado con exito');
     }
 
@@ -24,7 +24,7 @@ public with sharing class TestTaskIntegration {
 
         Test.stopTest();
 
-        Account account = [select Last_Activity_Date__c from Account where Name = 'Test' limit 1];
+        Account account = [select Last_Activity_Date__c from Account where Name = 'Test padre' limit 1];
         System.assertEquals(Date.today().addDays(20), account.Last_Activity_Date__c, 'La fecha se ha cambiado con exito');
     }
 }
